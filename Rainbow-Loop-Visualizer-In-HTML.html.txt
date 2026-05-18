@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rainbow Color Chaser</title>
+
+    <style>
+
+        body{
+            background:black;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            gap:20px;
+            font-family:Arial;
+        }
+
+        .container{
+            display:flex;
+            gap:10px;
+        }
+
+        .box{
+            width:70px;
+            height:70px;
+            background:gray;
+            border-radius:12px;
+            transition:0.3s;
+            box-shadow:0 0 10px white;
+        }
+
+        button{
+            padding:10px 20px;
+            font-size:18px;
+            border:none;
+            border-radius:10px;
+            cursor:pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+</div>
+
+<button onclick="toggleAnimation()" id="btn">
+    Pause
+</button>
+
+<script>
+
+const boxes = document.querySelectorAll(".box");
+
+const rainbow = [
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "blue",
+    "indigo",
+    "violet"
+];
+
+let current = 0;
+
+let running = true;
+
+function animateBoxes(){
+
+    // stop animation if paused
+    if(!running){
+        return;
+    }
+
+    // LOOP resets boxes
+    for(let i = 0; i < boxes.length; i++){
+
+        boxes[i].style.background = "gray";
+
+        boxes[i].style.transform = "scale(1)";
+    }
+
+    // active rainbow color
+    boxes[current].style.background =
+        rainbow[current];
+
+    // blinking effect
+    boxes[current].style.transform =
+        "scale(1.3)";
+
+    current++;
+
+    // restart animation
+    if(current >= boxes.length){
+        current = 0;
+    }
+}
+
+// pause / continue button
+function toggleAnimation(){
+
+    running = !running;
+
+    const btn = document.getElementById("btn");
+
+    if(running){
+        btn.innerText = "Pause";
+    }
+    else{
+        btn.innerText = "Continue";
+    }
+}
+
+setInterval(animateBoxes, 300);
+
+</script>
+
+</body>
+</html>
